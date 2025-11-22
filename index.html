@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi To-Do List Modern</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Menu Navigasi-->
+    <nav class="navbar">
+        <button onclick="navigateTo('home')" id="nav-home" class="nav-item active">Home</button>
+        <button onclick="navigateTo('add')" id="nav-add" class="nav-item">Daftar Tugas</button>
+        <button onclick="navigateTo('tasks')" id="nav-tasks" class="nav-item">Tasks</button>
+    </nav>
+
+    
+    <header class="page-header">
+        <h1 id="page-title">Aplikasi To-Do List</h1>
+        <p class="subtitle">Tambahkan tugas, tandai selesai, dan hapus tugas yang sudah tidak diperlukan.</p>
+    </header>
+
+    
+    <main class="main-card">
+        <!-- Page: Home Tasks -->
+        <div id="view-list" class="fade-in">
+            <!-- Filter Section dari hari pada text (Today) -->
+            <div class="today-section">
+                <button onclick="toggleTodayDropdown()" class="today-toggle">
+                    Today
+                    <i id="today-arrow" class="fa-solid fa-chevron-down arrow-icon"></i>
+                </button>
+                <!-- (Memunculkan hari/Dropdown Hari -->
+                <div id="day-filter-dropdown" class="day-filter-dropdown hidden">
+                    <button onclick="filterByDay('All')" class="filter-btn active">Semua</button>
+                    <button onclick="filterByDay('Minggu')" class="filter-btn">Minggu</button>
+                    <button onclick="filterByDay('Senin')" class="filter-btn">Senin</button>
+                    <button onclick="filterByDay('Selasa')" class="filter-btn">Selasa</button>
+                    <button onclick="filterByDay('Rabu')" class="filter-btn">Rabu</button>
+                    <button onclick="filterByDay('Kamis')" class="filter-btn">Kamis</button>
+                    <button onclick="filterByDay('Jumat')" class="filter-btn">Jumat</button>
+                    <button onclick="filterByDay('Sabtu')" class="filter-btn">Sabtu</button>
+                </div>
+                <p id="current-filter-label" class="filter-label">Menampilkan: Semua Hari</p>
+            </div>
+            
+            <!-- Active Tasks -->
+            <div class="section-container">
+                <div onclick="toggleSection('active-tasks-list', 'arrow-tasks')" class="section-header">
+                    <div class="icon-circle dark">
+                        <i class="fa-solid fa-folder-open"></i>
+                    </div>
+                    <span class="section-title">Tasks</span>
+                    <i id="arrow-tasks" class="fa-solid fa-chevron-down arrow-icon"></i>
+                </div>
+
+                <div id="active-tasks-list" class="task-grid">
+                    <!-- Tasks injected by JS -->
+                </div>
+
+                <div class="collapse-toggle-container">
+                    <button onclick="toggleSection('active-tasks-list', 'arrow-tasks')" class="btn-circle-collapse">
+                        <i class="fa-solid fa-chevron-up"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Section dari Completed Tasks -->
+            <div class="section-container mt-large">
+                 <div onclick="toggleSection('completed-tasks-list', 'arrow-completed')" class="section-header">
+                    <div class="icon-circle dark">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+                    <span class="section-title">Completed</span>
+                    <i id="arrow-completed" class="fa-solid fa-chevron-down arrow-icon"></i>
+                </div>
+
+                <div id="completed-tasks-list" class="task-grid-single">
+                    <!-- Completed Tasks injected by JS -->
+                </div>
+
+                 <div class="collapse-toggle-container">
+                    <button onclick="toggleSection('completed-tasks-list', 'arrow-completed')" class="btn-circle-collapse">
+                        <i class="fa-solid fa-chevron-up"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page: Daftar Tugas -->
+        <div id="view-add" class="hidden fade-in view-add-container">
+            <div class="form-card">
+                <h2 class="form-title">Tambah Tugas Baru</h2>
+                <div class="form-group">
+                    <div class="input-wrapper">
+                        <label>Nama Tugas</label>
+                        <input type="text" id="input-task-name" placeholder="Tulis nama tugas, misalnya: Belajar JavaScript" class="form-input">
+                    </div>
+                    <div class="input-row">
+                        <div class="input-wrapper flex-1">
+                            <i class="fa-regular fa-calendar input-icon"></i>
+                            <input type="date" id="input-task-date" class="form-input with-icon">
+                        </div>
+                        <button onclick="addTask()" class="btn btn-primary btn-large">
+                            Tambah
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    
+    <div id="edit-modal" class="modal-overlay hidden">
+        <div class="modal-card">
+            <h3 class="modal-title">Edit Tugas</h3>
+            <input type="hidden" id="edit-task-id">
+            
+            <label class="modal-label">Nama Tugas</label>
+            <input type="text" id="edit-task-name" class="form-input mb-small">
+            
+            <label class="modal-label">Tanggal</label>
+            <input type="date" id="edit-task-date" class="form-input mb-medium">
+            
+            <div class="modal-actions">
+                <button onclick="closeEditModal()" class="btn btn-secondary">Batal</button>
+                <button onclick="saveEditTask()" class="btn btn-primary">Simpan</button>
+            </div>
+        </div>
+    </div>
+
+    
+    <script src="script.js"></script>
+</body>
+</html>
