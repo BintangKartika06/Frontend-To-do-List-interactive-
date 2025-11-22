@@ -154,8 +154,6 @@ body {
 .filter-btn:hover {
     background-color: #727272;
     color: white;
-    
-    
 }
 
 .filter-label {
@@ -453,9 +451,18 @@ body {
     font-family: inherit;
 }
 
+.text-input {
+    display: block;
+    font-size: 0.875rem;
+    margin-left: 0.10rem;
+    margin-bottom: 0.75rem;
+    color: var(--text-dark);
+    font-weight: 600;
+}
+
 .form-input:focus {
     border-color: var(--primary-blue);
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.2);
 }
 
 .form-input.with-icon {

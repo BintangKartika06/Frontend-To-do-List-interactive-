@@ -96,13 +96,13 @@
                 <h2 class="form-title">Tambah Tugas Baru</h2>
                 <div class="form-group">
                     <div class="input-wrapper">
-                        <label>Nama Tugas</label>
+                        <label class="text-input">Nama Tugas</label>
                         <input type="text" id="input-task-name" placeholder="Tulis nama tugas, misalnya: Belajar JavaScript" class="form-input">
                     </div>
                     <div class="input-row">
                         <div class="input-wrapper flex-1">
                             <i class="fa-regular fa-calendar input-icon"></i>
-                            <input type="date" id="input-task-date" class="form-input with-icon">
+                            <input type="date" id="input-task-date" class="form-input with-icon" onliclick="this.showPicker()">
                         </div>
                         <button onclick="addTask()" class="btn btn-primary btn-large">
                             Tambah
@@ -132,7 +132,7 @@
             </div>
         </div>
     </div>
-    
+
     <footer class="site-footer">
         <small>&copy; 2025 To-Do List Interaktif | Front-End Web Development | By  <a href="https://www.instagram.com/bintangkar_"><b style="color: black;">Bintang Kartika</b></a></small>
     </footer>
