@@ -207,10 +207,13 @@ function toggleSection(elementId, arrowId) {
     if (el.classList.contains('hidden')) {
         el.classList.remove('hidden');
         if (window.innerWidth >= 768) {
-             if (elementId === 'active-tasks-list') {
-                 el.style.display = 'grid'; 
-             }
+            if (elementId === 'active-tasks-list' || elementId === 'completed-tasks-list') {
+                el.style.display = 'flex';
+            }
         }
+        // Reset Scroll
+        el.scrollLeft = 0;
+        el.scrollTop = 0;
         if(arrow) arrow.classList.remove('rotate-180');
     } else {
         el.classList.add('hidden');
