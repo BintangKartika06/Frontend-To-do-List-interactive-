@@ -29,7 +29,7 @@
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
     min-height: 100vh;
     display: flex;
@@ -37,6 +37,14 @@ body {
     align-items: center;
     padding: 2rem 1rem;
     color: var(--text-dark);
+}
+
+.site-footer {
+    text-align: center;
+    margin-top: auto;
+    padding: 1rem 0;
+    font-size: 0.875rem;
+    color: var(--text-muted);
 }
 
 /* --- Navigation --- */
