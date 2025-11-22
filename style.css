@@ -1,7 +1,6 @@
-/* --- Reset & Variables --- */
 :root {
     --primary-blue: #3B82F6;
-    --primary-hover: #2563EB;
+    --primary-hover: hsl(221, 83%, 53%);
     --success-green: #22C55E;
     --success-hover: #16A34A;
     --danger-red: #DC2626;
@@ -62,7 +61,7 @@ body {
 .nav-item {
     background: none;
     border: none;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 1rem;
     color: #374151;
     cursor: pointer;
@@ -153,7 +152,10 @@ body {
 }
 
 .filter-btn:hover {
-    background-color: #F3F4F6;
+    background-color: #727272;
+    color: white;
+    
+    
 }
 
 .filter-label {
@@ -231,7 +233,7 @@ body {
     flex-direction: column;
     gap: 0.75rem;
     box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-    width: 100%; /* default fullscreen for mobile */
+    width: 100%; /* Penambahan fitur fullscreen pada mobile */
     max-width: 350px; /* limit card width */
 }
 
