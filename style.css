@@ -218,9 +218,10 @@ body {
 }
 
 .task-grid-single {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: flex-start;
 }
 
 /* --- Task Cards --- */
@@ -291,13 +292,104 @@ body {
 }
 
 /* --- Task Actions (Buttons) --- */
-.task-actions {
+.task-actions-wrapper {
+    position: relative;
+    margin-left: auto;
     display: flex;
-    gap: 0.5rem;
+    align-items: center;
+}
+
+.btn-menu-trigger {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+    font-size: 1rem;
+}
+
+.btn-menu-trigger:hover {
+    background-color: #F3F4F6;
+    color: var(--text-dark);
+}
+.action-dropdown {
+    position: absolute;
+    right: 0;
+    top: 100%;
     margin-top: 0.5rem;
-    justify-content: flex-end;
-    padding-top: 0.5rem;
-    border-top: 1px solid #E5E7EB;
+    background-color: var(--white);
+    border-radius: var(--radius-lg);
+    border: 1px solid #E5E7EB; 
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    min-width: 160px;
+    z-index: 50;
+    overflow: hidden;
+    transform-origin: top right;
+    animation: scaleIn 0.2s ease-out;
+}
+
+
+@keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    text-align: left;
+    background: none;
+    border: none;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-family: 'Poppins', sans-serif;
+    border-bottom: 1px solid #F3F4F6;
+    color: #374151; 
+}
+
+.dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.dropdown-item:hover {
+    background-color: #F9FAFB;
+}
+
+.text-edit-custom {
+    font-weight: 600;
+    color: #1F2937;
+}
+
+.text-selesai-custom {
+    color: black; 
+    font-weight: 700;
+}
+.text-selesai-custom:hover {
+    background-color: #F3F4F6;
+}
+
+.text-hapus-custom {
+    color: #DC2626;
+    font-weight: 600;
+}
+.text-hapus-custom:hover {
+    background-color: #FEE2E2;
+    opacity: 10%;
+}
+
+.text-edit-custom {
+    font-weight: 600;
+    color: #a5a6a6;
 }
 
 @media (min-width: 768px) {

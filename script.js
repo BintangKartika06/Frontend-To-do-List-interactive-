@@ -61,7 +61,7 @@ function renderTasks() {
         // Struktur HTML berbeda untuk tugas aktif dan selesai
         if (!task.completed) {
             const html = `
-            <div class="task-card">
+            <div class="task-card" data-task-id="${task.id}">
                 <!-- Left Side: Checkbox + Text -->
                 <div class="task-left">
                     <!-- Circle Button -->
@@ -77,11 +77,16 @@ function renderTasks() {
                     </div>
                 </div>
 
-                <!-- Buttons Container -->
-                <div class="task-actions">
-                    <button onclick="openEditModal(${task.id})" class="btn btn-edit btn-small">Edit</button>
-                    <button onclick="deleteTask(${task.id})" class="btn btn-delete btn-small">Hapus</button>
-                    <button onclick="toggleComplete(${task.id})" class="btn btn-complete btn-small">Selesai</button>
+                <!-- Three-dot Button for Actions -->
+                <div class="task-actions-wrapper">
+                    <button class="btn-menu-trigger" aria-label="Tampilkan menu tugas">
+                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                    </button>
+                    <div class="action-dropdown hidden">
+                        <button class="dropdown-item text-edit-custom" onclick="openEditModal(${task.id})">Edit</button>
+                        <button class="dropdown-item text-hapus-custom" onclick="deleteTask(${task.id})">Hapus</button>
+                        <button class="dropdown-item text-selesai-custom" onclick="toggleComplete(${task.id})">Selesai</button>
+                    </div>
                 </div>
             </div>
             `;
@@ -220,6 +225,37 @@ function toggleSection(elementId, arrowId) {
         if(arrow) arrow.classList.add('rotate-180');
     }
 }
+
+// Close any open dropdown menus if clicked outside
+document.addEventListener('click', function(event) {
+    const isMenuTrigger = event.target.closest('.btn-menu-trigger');
+    const allDropdowns = document.querySelectorAll('.action-dropdown');
+
+    // Close all dropdowns except the one that was triggered (if any)
+    allDropdowns.forEach(dropdown => {
+        if (!dropdown.classList.contains('hidden')) {
+            // If click is outside this dropdown and button, hide it
+            const parent = dropdown.parentElement;
+            if (!parent.contains(event.target) || event.target.classList.contains('dropdown-item')) {
+                dropdown.classList.add('hidden');
+            }
+        }
+    });
+
+    // Toggle clicked dropdown menu
+    if(isMenuTrigger) {
+        const dropdown = isMenuTrigger.nextElementSibling;
+        if(dropdown) {
+            const isHidden = dropdown.classList.contains('hidden');
+            // Hide all first
+            allDropdowns.forEach(d => d.classList.add('hidden'));
+            // Then toggle current
+            if(isHidden) {
+                dropdown.classList.remove('hidden');
+            }
+        }
+    }
+});
 
 function toggleTodayDropdown() {
     const dropdown = document.getElementById('day-filter-dropdown');
