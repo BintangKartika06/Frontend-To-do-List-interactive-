@@ -285,10 +285,28 @@ function filterByDay(day) {
     renderTasks();
     toggleTodayDropdown(); 
 }
+function updateClock() {
+    const clockElement = document.getElementById('clock');
+    if (!clockElement) return;
+
+    const now = new Date();
+
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const seconds = now.getSeconds().toString().padStart(2, '0');
+
+    const options = { weekday: 'long', day: 'numeric', month: 'short', year: 'numeric' };
+    const dateString = now.toLocaleDateString('id-ID', options);
+
+    clockElement.textContent = `${dateString} ${hours}:${minutes}:${seconds}`;
+}
+
 window.onload = function() {
     const dateInput = document.getElementById('input-task-date');
     if(dateInput) {
         dateInput.valueAsDate = new Date();
     }
     renderTasks();
+    updateClock();
+    setInterval(updateClock, 1000);
 };

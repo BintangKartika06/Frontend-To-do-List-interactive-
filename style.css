@@ -28,6 +28,22 @@
     padding: 0;
 }
 
+#clock {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background-color:#00000023;
+    color: rgb(255, 255, 255);
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-lg);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    z-index: 1000;
+    user-select: none;
+    box-shadow: var(--shadow-lg);
+}
+
 body {
     font-family: 'Montserrat', sans-serif;
     background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
@@ -383,8 +399,8 @@ body {
     font-weight: 600;
 }
 .text-hapus-custom:hover {
-    background-color: #FEE2E2;
-    opacity: 10%;
+    background-color: #f47777;
+    opacity: 50%;
 }
 
 .text-edit-custom {
