@@ -20,7 +20,7 @@
     
     <header class="page-header">
         <h1 id="page-title">Aplikasi To-Do List</h1>
-        <p class="subtitle">Tambahkan tugas, tandai selesai, dan hapus tugas yang sudah tidak diperlukan.</p>
+        <p class="subtitle" id="page-subtitle">Tambahkan tugas, tandai selesai, dan hapus tugas yang sudah tidak diperlukan.</p>
     </header>
 
     
@@ -125,7 +125,12 @@
             
             <label class="modal-label">Tanggal</label>
             <input type="date" id="edit-task-date" class="form-input mb-medium">
-            
+
+            <div class="mb-medium">
+                <label for="edit-task-important">Important</label>
+                <input type="checkbox" id="edit-task-important">
+            </div>
+
             <div class="modal-actions">
                 <button onclick="closeEditModal()" class="btn btn-secondary">Batal</button>
                 <button onclick="saveEditTask()" class="btn btn-primary">Simpan</button>
@@ -136,6 +141,35 @@
     <footer class="site-footer">
         <small>&copy; 2025 To-Do List Interaktif | Front-End Web Development | By  <a href="https://www.instagram.com/bintangkar_"><b style="color: black;">Bintang Kartika</b></a></small>
     </footer>
+
+    <div class="settings-trigger" id="settings-trigger">
+    <i class="fas fa-cog"></i> 
+</div>
+
+<div class="settings-menu" id="settings-menu">
+    <div class="menu-item">
+        <i class="fas fa-star"></i>
+        <span>Important</span>
+        <label class="switch">
+            <input type="checkbox" id="important-switch">
+            <span class="slider round"></span>
+        </label>
+    </div>
+    <div class="menu-item">
+        <i class="fas fa-calendar-alt"></i>
+        <span>Calendar</span>
+        <button class="menu-btn" id="calendar-select">Select</button>
+        <div id="calendar-controls" class="hidden" style="margin-top: 10px; display: flex; gap: 10px;">
+            <input type="date" id="calendar-date-input" style="flex: 1;">
+            <button class="menu-btn" id="calendar-cancel">Cancel</button>
+        </div>
+    </div>
+    <div class="menu-item">
+        <i class="fas fa-plus"></i>
+        <span>New Tasks</span>
+        <button class="menu-btn" id="new-task-btn">Add</button>
+    </div>
+</div>
     
     <script src="script.js"></script>
 </body>

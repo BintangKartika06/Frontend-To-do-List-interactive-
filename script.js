@@ -1,10 +1,8 @@
-let tasks = [
-    { id: 1, name: "Tugas Membersihkan Kandang Harimau", date: "2025-12-31", completed: false },
-    { id: 2, name: "Belajar JavaScript DOM", date: "2025-11-20", completed: false },
-    { id: 3, name: "Meeting Project Web", date: "2025-11-21", completed: true }
-];
+let tasks = [];
 
 let currentFilterDay = 'All';
+let showOnlyImportant = false;
+let selectedDate = null;
 
 function navigateTo(page) {
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
@@ -45,14 +43,24 @@ function formatDate(dateString) {
 function renderTasks() {
     const activeContainer = document.getElementById('active-tasks-list');
     const completedContainer = document.getElementById('completed-tasks-list');
-    
+
     activeContainer.innerHTML = '';
     completedContainer.innerHTML = '';
 
-    const filteredTasks = tasks.filter(task => {
+    let filteredTasks = tasks.filter(task => {
         if (currentFilterDay === 'All') return true;
         return getDayName(task.date) === currentFilterDay;
     });
+
+    // Apply Important filter
+    if (showOnlyImportant) {
+        filteredTasks = filteredTasks.filter(task => task.important);
+    }
+
+    // Apply Date filter
+    if (selectedDate) {
+        filteredTasks = filteredTasks.filter(task => task.date === selectedDate);
+    }
 
     filteredTasks.forEach(task => {
         // Common Elements
@@ -130,7 +138,7 @@ function renderTasks() {
 function addTask() {
     const nameInput = document.getElementById('input-task-name');
     const dateInput = document.getElementById('input-task-date');
-    
+
     const name = nameInput.value.trim();
     const date = dateInput.value;
 
@@ -143,7 +151,8 @@ function addTask() {
         id: Date.now(),
         name: name,
         date: date,
-        completed: false
+        completed: false,
+        important: false
     };
 
     tasks.push(newTask);
@@ -180,6 +189,7 @@ function openEditModal(id) {
     document.getElementById('edit-task-id').value = task.id;
     document.getElementById('edit-task-name').value = task.name;
     document.getElementById('edit-task-date').value = task.date;
+    document.getElementById('edit-task-important').checked = task.important;
 
     document.getElementById('edit-modal').classList.remove('hidden');
 }
@@ -192,11 +202,13 @@ function saveEditTask() {
     const id = parseInt(document.getElementById('edit-task-id').value);
     const newName = document.getElementById('edit-task-name').value;
     const newDate = document.getElementById('edit-task-date').value;
+    const newImportant = document.getElementById('edit-task-important').checked;
 
     const task = tasks.find(t => t.id === id);
     if (task && newName && newDate) {
         task.name = newName;
         task.date = newDate;
+        task.important = newImportant;
         renderTasks();
         closeEditModal();
     } else {
@@ -226,15 +238,12 @@ function toggleSection(elementId, arrowId) {
     }
 }
 
-// Close any open dropdown menus if clicked outside
 document.addEventListener('click', function(event) {
     const isMenuTrigger = event.target.closest('.btn-menu-trigger');
     const allDropdowns = document.querySelectorAll('.action-dropdown');
 
-    // Close all dropdowns except the one that was triggered (if any)
     allDropdowns.forEach(dropdown => {
         if (!dropdown.classList.contains('hidden')) {
-            // If click is outside this dropdown and button, hide it
             const parent = dropdown.parentElement;
             if (!parent.contains(event.target) || event.target.classList.contains('dropdown-item')) {
                 dropdown.classList.add('hidden');
@@ -242,14 +251,11 @@ document.addEventListener('click', function(event) {
         }
     });
 
-    // Toggle clicked dropdown menu
     if(isMenuTrigger) {
         const dropdown = isMenuTrigger.nextElementSibling;
         if(dropdown) {
             const isHidden = dropdown.classList.contains('hidden');
-            // Hide all first
             allDropdowns.forEach(d => d.classList.add('hidden'));
-            // Then toggle current
             if(isHidden) {
                 dropdown.classList.remove('hidden');
             }
@@ -306,7 +312,49 @@ window.onload = function() {
     if(dateInput) {
         dateInput.valueAsDate = new Date();
     }
-    renderTasks();
+    navigateTo('add'); 
     updateClock();
     setInterval(updateClock, 1000);
 };
+const settingsTrigger = document.getElementById('settings-trigger');
+    const settingsMenu = document.getElementById('settings-menu');
+
+    settingsTrigger.addEventListener('click', () => {
+        settingsMenu.classList.toggle('show');
+    });
+
+
+    document.addEventListener('click', (event) => {
+        const isClickInsideMenu = settingsMenu.contains(event.target);
+        const isClickOnTrigger = settingsTrigger.contains(event.target);
+
+        if (!isClickInsideMenu && !isClickOnTrigger && settingsMenu.classList.contains('show')) {
+            settingsMenu.classList.remove('show');
+        }
+    });
+
+    document.getElementById('important-switch').addEventListener('change', (e) => {
+        showOnlyImportant = e.target.checked;
+        renderTasks();
+    });
+
+    const calendarControls = document.getElementById('calendar-controls');
+    const calendarDateInput = document.getElementById('calendar-date-input');
+    document.getElementById('calendar-select').addEventListener('click', () => {
+        calendarControls.classList.toggle('hidden');
+    });
+
+    calendarDateInput.addEventListener('change', (e) => {
+        selectedDate = e.target.value;
+        renderTasks();
+        calendarControls.classList.add('hidden');
+    });
+
+    document.getElementById('calendar-cancel').addEventListener('click', () => {
+        calendarControls.classList.add('hidden');
+    });
+
+    document.getElementById('new-task-btn').addEventListener('click', () => {
+        navigateTo('add');
+        settingsMenu.classList.remove('show');
+    });
