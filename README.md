@@ -17,7 +17,7 @@ Menghapus tugas dari DOM saat tombol hapus ditekan.
 
 ## Let's Connect
 
-[GitHub](https://choosealicense.com/licenses/mit/)
+[GitHub](https://github.com/BintangKartika06)
 
 [Instagram](https://www.instagram.com/bintangkar_/)
 
