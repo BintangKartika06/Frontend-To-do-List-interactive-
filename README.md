@@ -5,7 +5,8 @@ Memperkenalkan Website ini adalah web To Do list yang dimana orang bisa menambah
 ## Styling
 
 Website ini banyak memakai style yang modern mau dari, style box yang kekinian dan juga memakai Liquid Glass Effect pada nav menu diatas. Menambahkan ada menu setting di pojok kiri bawah, yang dimana user dapan mengakses beberapa fitur pada menu widget-setting.
-
+<img src="https://i.postimg.cc/WznHy6LV/Screenshot-2025-11-30-185337.png" width="300" />
+<img src="https://i.postimg.cc/MpbvFnXf/Screenshot-2025-11-30-194841.png" width="50" />
 
 ## Scripting
 
